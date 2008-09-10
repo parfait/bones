@@ -1,28 +1,58 @@
-require 'optparse'
+require 'choice'
 
 # Responsible for parsing commandline options and making them available throughout the app
+# We use Choice (http://choice.rubyforge.org/) for parsing the options
+# Examples (Taken directly from the Choice site):
 #
+#   Choice.options do
+#     header ''
+#     header 'Specific options:'
+#     
+#     option :host do
+#       short '-h'
+#       long '--host=HOST'
+#       desc 'The hostname or ip of the host to bind to (default 127.0.0.1)'
+#       default '127.0.0.1'
+#     end
+#     
+#     option :port do
+#       short '-p'
+#       long '--port=PORT'
+#       desc 'The port to listen on (default 21)'
+#       cast Integer
+#       default 21
+#     end
+#   end
 module <%= classname %>
   class CommandLineParser
-    def self.parse
-      @parser ||= OptionParser.new do |opts|
-        opts.banner = "Usage: #{File.basename($0)} [options] ..."
+    def self.parse!
+      Choice.options do
+        header ''
+        header 'Specific options:'
 
-        opts.on_tail("-h", "--help", "Show this message") do
-          Kernel.puts opts
-          exit
+        # FIXME INSERT COMMAND LINE OPTIONS HERE
+
+        separator ''
+        separator 'Common options: '
+
+        option :help do
+          long '--help'
+          desc 'Show this message'
         end
 
-        opts.on("--debug", "Display debugging information") {
-          options[:debug] = true
-        }
-
-        opts.on("-v", "--version", "Display the samurai version, and exit.") do
-          puts <%= classname %>.version
-          exit
+        option :version do
+          short '-v'
+          long '--version'
+          desc 'Show version'
+          action do
+            puts "<%= classname %> v#{<%= classname %>.version}"
+            exit
+          end
         end
-        
-        opts.separator ""
+      end
+      
+      def self.choices
+        Choice.choices
       end
     end
   end

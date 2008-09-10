@@ -9,6 +9,7 @@ data/README.txt.erb
 data/Rakefile.erb
 data/bin/NAME.erb
 data/lib/NAME.rb.erb
+data/lib/commandline_parser.rb.erb
 data/spec/NAME_spec.rb.erb
 data/spec/spec_helper.rb.erb
 data/tasks/ann.rake

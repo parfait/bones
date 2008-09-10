@@ -3,6 +3,9 @@
 require File.expand_path(
     File.join(File.dirname(__FILE__), '..', 'lib', '<%= name %>'))
 
+<%= classname %>::CommandLineParser.parse!
+
 # Put your code here
+# Command line arguments are available at <%= classname %>::CommandLineParser.choices
 
 # EOF
